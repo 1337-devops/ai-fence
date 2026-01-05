@@ -2,6 +2,8 @@
 
 Git hooks to protect your code from AI rewrites.
 
+![ai-fence demo](demo.gif)
+
 ## The Problem
 
 AI coding tools (Cursor, Copilot, etc.) can modify any code in your project. Sometimes they rewrite critical sections — auth logic, billing code, security checks — without you noticing.
@@ -15,7 +17,7 @@ Mark code as protected with simple comments. ai-fence blocks any commit that mod
 npm install -g ai-fence
 ```
 
-## Usage
+## Quick Start
 
 1. Initialize in your repo:
 ```bash
@@ -45,6 +47,14 @@ The following locked code sections were modified:
 To commit these changes, remove the @ai-lock tags first.
 ```
 
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `ai-fence init` | Install the pre-commit hook |
+| `ai-fence check` | Manually check for locked code modifications |
+| `ai-fence status` | Show all locked blocks in your repo |
+
 ## Supported Languages
 
 | Language | Comment Style |
@@ -54,6 +64,16 @@ To commit these changes, remove the @ai-lock tags first.
 | Ruby | `# @ai-lock` |
 | Shell | `# @ai-lock` |
 | YAML | `# @ai-lock` |
+
+## How It Works
+
+ai-fence installs a Git pre-commit hook. Before every commit, it:
+
+1. Scans staged files for `@ai-lock` / `@ai-unlock` markers
+2. Checks if any locked lines were modified
+3. Blocks the commit if protected code was changed
+
+The AI never knows about the lock. It's enforced by Git, not the editor.
 
 ## License
 

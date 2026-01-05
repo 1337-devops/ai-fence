@@ -26,4 +26,12 @@ program
     await check();
   });
 
+program
+  .command('status')
+  .description('Show all locked blocks in the repo')
+  .action(async () => {
+    const { status } = await import('../src/commands/status.js');
+    await status();
+  });
+
 program.parse();
